@@ -5,9 +5,25 @@ $def with (files)
     <script>
       function attachHandlers() {
         const items = document.querySelectorAll("li")
+        const img = document.querySelector("#previewImg")
 
         items.forEach(item => {
+
+          //click behavior for image options
           item.addEventListener("click", e => {
+
+            //move the "active" class to the selected option
+            const activeItems = document.querySelectorAll("li.active")
+            activeItems.forEach(activeItem => {
+              activeItem.classList.remove("active")
+            })
+            item.classList.add("active")
+
+            //update the watermark
+            const imgFileName = e.target.innerHTML
+            img.setAttribute("src", "static/" + imgFileName)
+
+            //update active image on the server
             var xhr = new XMLHttpRequest()
             xhr.onreadystatechange = function() {}
             xhr.open("POST", "/admin")
@@ -24,10 +40,12 @@ $def with (files)
     <style>
       body {
         font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        display: flex;
       }
       ul {
         padding: 0;
         list-style-type: none;
+        z-index:10;
       }
       li {
         font-size: 15px;
@@ -37,12 +55,30 @@ $def with (files)
       li:hover {
         color: #19b;
       }
+      li.active {
+        font-weight: 600;
+        background:#fff;
+      }
+      div.filler {
+        flex: 1;
+      }
+      #previewImg {
+        position:absolute;
+        top:0;
+        left:0;
+        height:400px;
+        opacity:.2;
+        z-index:5;
+      }
     </style>
   </head>
   <body>
+    <img id="previewImg" src="" />
     <ul>
-      $for f in files:
-      <li>$f</li>
+      $for idx, f in enumerate(files):
+      <li class="li$idx">$f</li>
     </ul>
+    <div className="filler">      
+    </div>    
   </body>
 </html>
