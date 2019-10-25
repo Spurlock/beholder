@@ -1,0 +1,48 @@
+$def with (files)
+
+<html>
+  <head>
+    <script>
+      function attachHandlers() {
+        const items = document.querySelectorAll("li");
+
+        items.forEach(item => {
+          item.addEventListener("click", e => {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {};
+            xhr.open("POST", "/admin");
+            xhr.setRequestHeader(
+              "Content-Type",
+              "application/x-www-form-urlencoded"
+            );
+            xhr.send(encodeURI("filename=" + e.target.innerHTML));
+          });
+        });
+      }
+      window.onload = attachHandlers;
+    </script>
+    <style>
+      body {
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      }
+      ul {
+        padding: 0;
+        list-style-type: none;
+      }
+      li {
+        font-size: 15px;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      li:hover {
+        color: #19b;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      $for f in files:
+      <li>$f</li>
+    </ul>
+  </body>
+</html>
