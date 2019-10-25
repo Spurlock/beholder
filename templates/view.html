@@ -1,10 +1,10 @@
 <html>
   <head>
     <script>
-      var img;
+      var img
 
       async function subscribe() {
-        let resp = await fetch("/image");
+        let resp = await fetch("/image")
         if (resp.status == 502) {
           await subscribe()
         } else if (resp.status != 200) {
