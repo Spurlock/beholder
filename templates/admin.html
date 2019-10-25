@@ -4,22 +4,22 @@ $def with (files)
   <head>
     <script>
       function attachHandlers() {
-        const items = document.querySelectorAll("li");
+        const items = document.querySelectorAll("li")
 
         items.forEach(item => {
           item.addEventListener("click", e => {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {};
-            xhr.open("POST", "/admin");
+            var xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function() {}
+            xhr.open("POST", "/admin")
             xhr.setRequestHeader(
               "Content-Type",
               "application/x-www-form-urlencoded"
-            );
-            xhr.send(encodeURI("filename=" + e.target.innerHTML));
-          });
-        });
+            )
+            xhr.send(encodeURI("filename=" + e.target.innerHTML))
+          })
+        })
       }
-      window.onload = attachHandlers;
+      window.onload = attachHandlers
     </script>
     <style>
       body {
