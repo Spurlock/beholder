@@ -2,6 +2,9 @@ import web
 import os
 
 
+IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"]
+
+
 class Image(object):
 
     # Retrieve the currently active image
@@ -23,9 +26,12 @@ class Admin(object):
     def GET(self):
         files = []
         for _, _, filenames in os.walk("static"):
-            files.extend(filenames)
+            for full_name in filenames:
+                _, extension = os.path.splitext(full_name)
+                if extension in IMAGE_EXTENSIONS:
+                    files.append(full_name)
             break
-
+            
         render = web.template.render('templates')
         return render.admin(files=files)
 
